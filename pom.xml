@@ -72,8 +72,43 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.1.1</version>
 				<configuration>
-					<tag>@{project.version}</tag>
+					<tagNameFormat>@{project.version}</tagNameFormat>
+					<preparationGoals>org.codehaus.gmaven:groovy-maven-plugin:execute@print_pre clean verify</preparationGoals>
+					<completionGoals>org.codehaus.gmaven:groovy-maven-plugin:execute@print_com</completionGoals>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>groovy-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>print_pre</id>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								println "Hello ${project.version}"
+								def newFile = new File("preparationGoals.txt")
+								newFile.write("Hello ${project.version}")
+							</source>
+						</configuration>
+					</execution>
+					<execution>
+						<id>print_com</id>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								println "Hello ${project.version}"
+								def newFile = new File("completionGoals.txt")
+								newFile.write("Hello ${project.version}")
+							</source>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
