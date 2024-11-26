@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -9,7 +11,7 @@
 	</parent>
 	<groupId>kr.ohkwon79</groupId>
 	<artifactId>maven-release-test</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<name>maven-release-test</name>
 	<description>maven-release-test project with Spring Boot</description>
 
@@ -23,8 +25,7 @@
 		<connection>scm:git:https://github.com/ohkwon79/maven-release-test.git</connection>
 		<developerConnection>scm:git:git@github.com:ohkwon79/maven-release-test.git</developerConnection>
 		<url>git@github.com:ohkwon79/maven-release-test.git</url>
-	  <tag>0.0.4</tag>
-  </scm>
+	</scm>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
@@ -66,7 +67,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-<plugin>
+			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.15.1</version>
@@ -107,7 +108,7 @@
 						<configuration>
 							<arguments>run setVersion</arguments>
 							<environmentVariables>
-							   <NEW_VERSION>${project.version}</NEW_VERSION>
+								<NEW_VERSION>${project.version}</NEW_VERSION>
 							</environmentVariables>
 						</configuration>
 					</execution>
@@ -115,17 +116,38 @@
 				<configuration>
 					<nodeVersion>v22.11.0</nodeVersion>
 					<workingDirectory>src/main/frontend</workingDirectory>
-					<installDirectory>target</installDirectory>
+					<!-- <installDirectory>target</installDirectory> -->
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-package-json</id>
+						<goals>
+							<goal>add</goal>
+						</goals>
+						<configuration>
+							<basedir>${project.basedir}</basedir>
+							<workingDirectory>${project.basedir}/src/main/frontend</workingDirectory>
+							<includes>package.json,package-lock.json</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.1.1</version>
 				<configuration>
 					<tagNameFormat>@{project.version}</tagNameFormat>
-					<preparationGoals>clean verify com.github.eirslett:frontend-maven-plugin:npm@set-version</preparationGoals>
-					<completionGoals>com.github.eirslett:frontend-maven-plugin:npm@set-version</completionGoals>
+					<preparationGoals>com.github.eirslett:frontend-maven-plugin:npm@set-version
+						org.apache.maven.plugins:maven-scm-plugin:add@add-package-json clean verify</preparationGoals>
+					<completionGoals>com.github.eirslett:frontend-maven-plugin:npm@set-version
+						org.apache.maven.plugins:maven-scm-plugin:add@add-package-json</completionGoals>
 				</configuration>
 			</plugin>
 		</plugins>
