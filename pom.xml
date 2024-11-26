@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>kr.ohkwon79</groupId>
 	<artifactId>maven-release-test</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>maven-release-test</name>
 	<description>maven-release-test project with Spring Boot</description>
 
@@ -23,7 +23,7 @@
 		<connection>scm:git:https://github.com/ohkwon79/maven-release-test.git</connection>
 		<developerConnection>scm:git:git@github.com:ohkwon79/maven-release-test.git</developerConnection>
 		<url>git@github.com:ohkwon79/maven-release-test.git</url>
-	  <tag>maven-release-test-0.0.2</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<properties>
 		<java.version>21</java.version>
@@ -118,7 +118,7 @@
 					<installDirectory>target</installDirectory>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.1.1</version>
@@ -127,41 +127,7 @@
 					<preparationGoals>clean verify com.github.eirslett:frontend-maven-plugin:npm@setVersion</preparationGoals>
 					<completionGoals>com.github.eirslett:frontend-maven-plugin:npm@setVersion</completionGoals>
 				</configuration>
-			</plugin> -->
-
-			<!-- <plugin>
-				<groupId>org.codehaus.gmaven</groupId>
-				<artifactId>groovy-maven-plugin</artifactId>
-				<version></version>
-				<executions>
-					<execution>
-						<id>print_pre</id>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<source>
-								println "Hello ${project.version}"
-								def newFile = new File("preparationGoals.txt")
-								newFile.write("Hello ${project.version}")
-							</source>
-						</configuration>
-					</execution>
-					<execution>
-						<id>print_com</id>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<source>
-								println "Hello ${project.version}"
-								def newFile = new File("completionGoals.txt")
-								newFile.write("Hello ${project.version}")
-							</source>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 
