@@ -69,6 +69,7 @@
 <plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.15.1</version>
 				<executions>
 					<execution>
 						<id>install node and npm</id>
@@ -99,8 +100,9 @@
 					</execution>
 					<execution>
 						<id>set-version</id>
+						<phase>none</phase>
 						<goals>
-							<goal>node</goal>
+							<goal>npm</goal>
 						</goals>
 						<configuration>
 							<arguments>run setVersion</arguments>
@@ -116,20 +118,21 @@
 					<installDirectory>target</installDirectory>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.1.1</version>
 				<configuration>
 					<tagNameFormat>@{project.version}</tagNameFormat>
-					<preparationGoals>org.codehaus.gmaven:groovy-maven-plugin:execute@print_pre clean verify</preparationGoals>
-					<completionGoals>org.codehaus.gmaven:groovy-maven-plugin:execute@print_com</completionGoals>
+					<preparationGoals>clean verify com.github.eirslett:frontend-maven-plugin:npm@setVersion</preparationGoals>
+					<completionGoals>com.github.eirslett:frontend-maven-plugin:npm@setVersion</completionGoals>
 				</configuration>
-			</plugin>
+			</plugin> -->
 
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.gmaven</groupId>
 				<artifactId>groovy-maven-plugin</artifactId>
+				<version></version>
 				<executions>
 					<execution>
 						<id>print_pre</id>
@@ -158,7 +161,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 
