@@ -66,6 +66,56 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-version</id>
+						<goals>
+							<goal>node</goal>
+						</goals>
+						<configuration>
+							<arguments>run setVersion</arguments>
+							<environmentVariables>
+							   <NEW_VERSION>${project.version}</NEW_VERSION>
+							</environmentVariables>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<nodeVersion>v22.11.0</nodeVersion>
+					<workingDirectory>src/main/frontend</workingDirectory>
+					<installDirectory>target</installDirectory>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
