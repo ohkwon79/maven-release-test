@@ -105,10 +105,7 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run setVersion</arguments>
-							<environmentVariables>
-								<NEW_VERSION>${project.version}</NEW_VERSION>
-							</environmentVariables>
+							<arguments>version ${project.version}</arguments>
 						</configuration>
 					</execution>
 				</executions>
