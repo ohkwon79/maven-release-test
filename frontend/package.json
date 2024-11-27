@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "BUILD_PATH='../../../target/frontend' react-scripts build",
+    "build": "BUILD_PATH='./target/frontend' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "setVersion": "node set-version.mjs"
